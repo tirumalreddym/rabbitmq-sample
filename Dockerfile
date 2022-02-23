@@ -1,12 +1,13 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM nexusprod.corp.intranet:4567/devbaseimages/development_base_images/dotnetsdk3.1:2021Q2 AS base
 WORKDIR /app
 ENV ASPNETCORE_URLS http://*:5000
 EXPOSE 5000
 
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM nexusprod.corp.intranet:4567/devbaseimages/development_base_images/dotnetsdk3.1:2021Q2 AS build
+USER root
 WORKDIR /src
 COPY ["rabbitmq-sample.csproj", "."]
 RUN dotnet restore "./rabbitmq-sample.csproj"
